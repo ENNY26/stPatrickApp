@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Maze.css";
+import "./App.css";
 
 const initialMaze = [
   ["S", " ", "X", "X", "X", "X"],
