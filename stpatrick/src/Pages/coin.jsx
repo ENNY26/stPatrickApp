@@ -2,18 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import "./coin.css";
 
 // Import images (replace with your actual image paths)
-import potImage from "../assets/pot.png"; // Path to your pot image
+import potImage from "../assets/pot.svg"; // Path to your pot image
 import luckyCoinImage from "../assets/luckyCoinImage.svg"; // Path to your lucky coin image
 import normalCoinImage from "../assets/normalCoinImage.svg"; // Path to your normal coin image
+
+// Import audio files (replace with your actual audio paths)
+import normalCoinSound from "../assets/coin.mp3"; // Sound for normal coins
+import specialCoinSound from "../assets/coin2.mp3"; // Sound for special coins
 
 const GoldCollector = () => {
   const [potPosition, setPotPosition] = useState(50);
   const [coins, setCoins] = useState([]);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0); // Track high score
   const [specialMessage, setSpecialMessage] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30); // 30-second timer
   const gameAreaRef = useRef(null);
+
+  // Audio objects
+  const normalCoinAudio = new Audio(normalCoinSound);
+  const specialCoinAudio = new Audio(specialCoinSound);
+
+  // Load high score from localStorage on initial render
+  useEffect(() => {
+    const savedHighScore = localStorage.getItem("highScore");
+    if (savedHighScore) {
+      setHighScore(parseInt(savedHighScore, 10));
+    }
+  }, []);
+
+  // Update high score in localStorage whenever it changes
+  useEffect(() => {
+    if (score > highScore) {
+      setHighScore(score);
+      localStorage.setItem("highScore", score.toString());
+    }
+  }, [score, highScore]);
 
   // Function to create new coins
   const createCoin = () => {
@@ -65,10 +90,15 @@ const GoldCollector = () => {
             if (isCaught) {
               setScore((prev) => prev + (coin.isSpecial ? 5 : 1)); // Special coins give +5 points
 
+              // Play sound effect
               if (coin.isSpecial) {
+                specialCoinAudio.play();
                 setSpecialMessage("🌟 Lucky Coin! +5 Points! 🌟");
                 setTimeout(() => setSpecialMessage(null), 1500); // Message disappears
+              } else {
+                normalCoinAudio.play();
               }
+
               return false; // Remove caught coins
             }
 
@@ -108,6 +138,7 @@ const GoldCollector = () => {
     <div className="game-container">
       <h1>🪙 Gold Coin Collector 🏆</h1>
       <p>Score: {score}</p>
+      <p>High Score: {highScore}</p>
       <p>Time Left: {timeLeft} seconds</p>
 
       {specialMessage && <div className="special-message">{specialMessage}</div>}
