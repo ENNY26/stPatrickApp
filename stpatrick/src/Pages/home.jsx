@@ -15,7 +15,7 @@ const Home = () => {
 
         <div className="links">
           <a href="/maze" className="btn">🌀 Leprechaun Maze Escape 🏆</a>
-          <a href="/coin" className="btn">🪙 Gold Coin Collector 🏆</a>
+          <a href="/coin-collector" className="btn">🪙 Gold Coin Collector 🏆</a>
         </div>
       </div>
     </div>
