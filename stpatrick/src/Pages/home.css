@@ -35,16 +35,18 @@ body {
     animation: dropText 1.5s ease-out;
   }
   .p{
+    margin-top: 20px;
     text-align: center;
   }
   .links {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 10px;
+    margin-bottom: 60px;
   }
   
   .a {
+    padding: 30px;
     text-decoration: none;
     color: white;
     background-color: green;
@@ -65,9 +67,9 @@ body {
     align-items: center; /* Centers content vertically */
     position: fixed;
     left: 0;
-    bottom: 0;
+    bottom:0;
     width: 100%; /* Makes sure it spans the full width */
-    padding: 10px 0; /* Adds some spacing */
+    padding-top: 43px; /* Adds some spacing */
     text-align: center; /* Ensures text is centered */
   }
   

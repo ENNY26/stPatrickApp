@@ -12,7 +12,6 @@ const Home = () => {
       <div className="right">
         <h1>🍀 Happy Saint Patrick's Day!! 🍀</h1>
         <h2>Choose any of these games to play</h2>
-
         <div className="links">
           <a cl href="/maze" className="a"> 🍀 Leprechaun Maze Escape 🌽</a>
           <a href="/coin-collector" className="a">🪙 Gold Coin Collector 🏺</a>
