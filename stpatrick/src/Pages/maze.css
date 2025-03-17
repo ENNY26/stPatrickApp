@@ -9,7 +9,9 @@ h1 {
   font-size: 2rem;
   color: #2e7d32; /* Green */
 }
-
+img{
+  width: 42px;
+}
 .reset-btn {
   padding: 10px 20px;
   font-size: 1rem;

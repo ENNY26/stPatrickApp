@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./maze.css";
-
+import { Link } from "react-router-dom";
+import home from "../assets/home.svg";
 // Function to generate a random maze
 const generateMaze = (rows, cols) => {
   let maze = Array.from({ length: rows }, () =>
@@ -112,7 +113,11 @@ const MazeGame = () => {
 
   return (
     <div className="maze-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-      <h1>🍀 Leprechaun Maze Escape 🏆</h1>
+      
+      <Link cl to="/" className="home-link">
+      <img src={home} alt="" />
+      </Link>
+      <h1>🍀 Leprechaun Maze Escape 🌽</h1>
       <p>Time Left: {timeLeft} seconds</p>
       <p>Mazes Solved: {mazesSolved}</p>
 
@@ -134,7 +139,7 @@ const MazeGame = () => {
                     playerPos.row === rowIndex && playerPos.col === colIndex ? "player" : ""
                   }`}
                 >
-                  {cell === "E" ? "🏆" : playerPos.row === rowIndex && playerPos.col === colIndex ? "🧑‍🌾" : ""}
+                  {cell === "E" ? "🏺" : playerPos.row === rowIndex && playerPos.col === colIndex ? "🧑‍🌾" : ""}
                 </div>
               ))
             )}
@@ -149,6 +154,7 @@ const MazeGame = () => {
         <button className="control-button" onClick={() => movePlayer("left")}>⬅️</button>
         <button className="control-button" onClick={() => movePlayer("right")}>➡️</button>
       </div>
+      
     </div>
   );
 };

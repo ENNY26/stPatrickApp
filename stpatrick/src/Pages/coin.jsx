@@ -1,30 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./coin.css";
+import { Link } from "react-router-dom";
+import home from "../assets/home.svg";
+import potImage from "../assets/pot.png"; 
+import luckyCoinImage from "../assets/luckyCoinImage.svg"; 
+import normalCoinImage from "../assets/normalCoinImage.svg"; 
 
-// Import images (replace with your actual image paths)
-import potImage from "../assets/pot.svg"; // Path to your pot image
-import luckyCoinImage from "../assets/luckyCoinImage.svg"; // Path to your lucky coin image
-import normalCoinImage from "../assets/normalCoinImage.svg"; // Path to your normal coin image
-
-// Import audio files (replace with your actual audio paths)
-import normalCoinSound from "../assets/coin.mp3"; // Sound for normal coins
-import specialCoinSound from "../assets/coin2.mp3"; // Sound for special coins
-
+import normalCoinSound from "../assets/coin.mp3"; 
+import specialCoinSound from "../assets/coin2.mp3";
 const GoldCollector = () => {
   const [potPosition, setPotPosition] = useState(50);
   const [coins, setCoins] = useState([]);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0); // Track high score
+  const [highScore, setHighScore] = useState(0); 
   const [specialMessage, setSpecialMessage] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30); // 30-second timer
   const gameAreaRef = useRef(null);
 
-  // Audio objects
   const normalCoinAudio = new Audio(normalCoinSound);
   const specialCoinAudio = new Audio(specialCoinSound);
 
-  // Load high score from localStorage on initial render
   useEffect(() => {
     const savedHighScore = localStorage.getItem("highScore");
     if (savedHighScore) {
@@ -32,7 +28,6 @@ const GoldCollector = () => {
     }
   }, []);
 
-  // Update high score in localStorage whenever it changes
   useEffect(() => {
     if (score > highScore) {
       setHighScore(score);
@@ -40,14 +35,13 @@ const GoldCollector = () => {
     }
   }, [score, highScore]);
 
-  // Function to create new coins
   const createCoin = () => {
     setCoins((prev) => [
       ...prev,
       {
         id: Math.random(),
         left: Math.random() * 90,
-        isSpecial: Math.random() < 0.2, // 20% chance of special coin
+        isSpecial: Math.random() < 0.2, 
         top: 0,
       },
     ]);
@@ -136,7 +130,10 @@ const GoldCollector = () => {
 
   return (
     <div className="game-container">
-      <h1>🪙 Gold Coin Collector 🏆</h1>
+      <Link  to="/" className="home-link">
+      <img src={home} alt="" />
+      </Link>
+      <h1>🪙 Gold Coin Collector 🏺</h1>
       <p>Score: {score}</p>
       <p>High Score: {highScore}</p>
       <p>Time Left: {timeLeft} seconds</p>

@@ -10,15 +10,22 @@ const Home = () => {
       </div>
 
       <div className="right">
-        <h1>🍀 Happy Saint Patrick's Day Mate!! 🍀</h1>
+        <h1>🍀 Happy Saint Patrick's Day!! 🍀</h1>
         <h2>Choose any of these games to play</h2>
 
         <div className="links">
-          <a href="/maze" className="btn">🌀 Leprechaun Maze Escape 🏆</a>
-          <a href="/coin-collector" className="btn">🪙 Gold Coin Collector 🏆</a>
+          <a cl href="/maze" className="a"> 🍀 Leprechaun Maze Escape 🌽</a>
+          <a href="/coin-collector" className="a">🪙 Gold Coin Collector 🏺</a>
         </div>
+        <div className='foot'>
+        <footer>
+        <p className='p'>Made with ❤️ by Eniola</p>
+      </footer>
       </div>
+      </div>
+      
     </div>
+    
   );
 };
 
