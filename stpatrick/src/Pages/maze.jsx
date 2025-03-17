@@ -19,9 +19,16 @@ const MazeGame = () => {
   const [playerPos, setPlayerPos] = useState({ row: 0, col: 0 });
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(20); // 20-second timer
+  const [gameOver, setGameOver] = useState(false);
+  const [mazesSolved, setMazesSolved] = useState(0); // Track solved mazes
 
+
+  
   // Function to move player
   const movePlayer = (direction) => {
+    if (gameOver) return; // Prevent movement if game is over
+
     let { row, col } = playerPos;
 
     if (direction === "up" && row > 0 && maze[row - 1][col] !== "X") row--;
@@ -32,8 +39,8 @@ const MazeGame = () => {
     setPlayerPos({ row, col });
 
     if (maze[row][col] === "E") {
-      alert("🎉 You found the pot of gold! 🏆🍀");
-      resetGame();
+      setMazesSolved((prev) => prev + 1); // Increment solved mazes
+      resetMaze(); // Generate a new maze
     }
   };
 
@@ -48,7 +55,7 @@ const MazeGame = () => {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [playerPos]);
+  }, [playerPos, gameOver]);
 
   // Handle touch gestures (for mobile)
   const handleTouchStart = (e) => {
@@ -76,29 +83,71 @@ const MazeGame = () => {
     }
   };
 
+  // Countdown timer
+  useEffect(() => {
+    if (timeLeft > 0 && !gameOver) {
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (timeLeft === 0) {
+      setGameOver(true); // End the game when time runs out
+    }
+  }, [timeLeft, gameOver]);
+
+  // Function to reset the maze (without resetting the timer or score)
+  const resetMaze = () => {
+    setMaze(generateMaze(6, 6)); // Generate new random maze
+    setPlayerPos({ row: 0, col: 0 }); // Reset player position
+  };
+
   // Function to reset the game
   const resetGame = () => {
     setMaze(generateMaze(6, 6)); // Generate new random maze
     setPlayerPos({ row: 0, col: 0 }); // Reset player position
+    setTimeLeft(20); // Reset timer
+    setGameOver(false); // Reset game over state
+    setMazesSolved(0); // Reset solved mazes
   };
 
   return (
     <div className="maze-container" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <h1>🍀 Leprechaun Maze Escape 🏆</h1>
-      <button className="reset-btn" onClick={resetGame}>🔄 New Maze</button>
-      <div className="maze">
-        {maze.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={`cell ${cell === "X" ? "wall" : ""} ${cell === "E" ? "goal" : ""} ${
-                playerPos.row === rowIndex && playerPos.col === colIndex ? "player" : ""
-              }`}
-            >
-              {cell === "E" ? "🏆" : playerPos.row === rowIndex && playerPos.col === colIndex ? "🧑‍🌾" : ""}
-            </div>
-          ))
-        )}
+      <p>Time Left: {timeLeft} seconds</p>
+      <p>Mazes Solved: {mazesSolved}</p>
+
+      {gameOver ? (
+        <div className="game-over">
+          <h2>Game Over!</h2>
+          <p>You solved {mazesSolved} mazes in 20 seconds!</p>
+          <button className="reset-btn" onClick={resetGame}>🔄 Play Again</button>
+        </div>
+      ) : (
+        <>
+          <button className="reset-btn" onClick={resetMaze}>🔄 New Maze</button>
+          <div className="maze">
+            {maze.map((row, rowIndex) =>
+              row.map((cell, colIndex) => (
+                <div
+                  key={`${rowIndex}-${colIndex}`}
+                  className={`cell ${cell === "X" ? "wall" : ""} ${cell === "E" ? "goal" : ""} ${
+                    playerPos.row === rowIndex && playerPos.col === colIndex ? "player" : ""
+                  }`}
+                >
+                  {cell === "E" ? "🏆" : playerPos.row === rowIndex && playerPos.col === colIndex ? "🧑‍🌾" : ""}
+                </div>
+              ))
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Mobile Arrow Controls */}
+      <div className="mobile-controls">
+        <button className="control-button" onClick={() => movePlayer("up")}>⬆️</button>
+        <button className="control-button" onClick={() => movePlayer("down")}>⬇️</button>
+        <button className="control-button" onClick={() => movePlayer("left")}>⬅️</button>
+        <button className="control-button" onClick={() => movePlayer("right")}>➡️</button>
       </div>
     </div>
   );

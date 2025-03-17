@@ -1,50 +1,87 @@
+/* General Styles */
 .maze-container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .maze {
-    display: grid;
-    grid-template-columns: repeat(6, 50px);
-    gap: 5px;
-    margin: 20px auto;
-  }
-  
-  .cell {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid black;
-    font-size: 24px;
-    background-color: white;
-  }
-  
-  .wall {
-    background-color: black;
-  }
-  
-  .goal {
-    background-color: gold;
-  }
-  
-  .player {
-    background-color: green;
-    color: white;
-    font-size: 20px;
-  }
-  
-  .reset-btn {
-    background: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    margin-bottom: 10px;
-  }
-  .reset-btn:hover {
-    background: #218838;
-  }
-  
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #2e7d32; /* Green */
+}
+
+.reset-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.reset-btn:hover {
+  background-color: #388e3c; /* Darker green */
+}
+
+/* Maze Grid */
+.maze {
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  grid-template-rows: repeat(6, 50px);
+  gap: 2px;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #a5d6a7; /* Light green */
+  border: 1px solid #81c784; /* Medium green */
+}
+
+.wall {
+  background-color: #2e7d32; /* Dark green */
+}
+
+.goal {
+  background-color: #ffeb3b; /* Yellow */
+}
+
+.player {
+  background-color: #ff9800; /* Orange */
+}
+
+/* Game Over Screen */
+.game-over {
+  font-size: 2rem;
+  color: #d32f2f; /* Red */
+  margin-top: 20px;
+}
+
+/* Mobile Controls */
+.mobile-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.control-button {
+  padding: 15px 20px;
+  font-size: 1.5rem;
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  background-color: #388e3c; /* Darker green */
+}
